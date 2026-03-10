@@ -1,0 +1,5 @@
+{
+  "name": "PanZoom Interactive Map",
+  "description": "An interactive, high-fidelity pannable and zoomable map interface with hotspot modals featuring rich media content.",
+  "requestFramePermissions": []
+}
