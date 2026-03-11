@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "x": 75,
+    "y": 45,
+    "title": "GAS STORAGE",
+    "subtitle": "SECURE ENERGY STORAGE SOLUTIONS",
+    "content": {
+      "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1600",
+      "title": "Gas Storage",
+      "subtitle": "SECURE ENERGY STORAGE SOLUTIONS",
+      "description": { "html": "<p>Gas storage plays a critical role in maintaining a stable and reliable energy system. Besides helping manage supply and demand, it provides critical storage facilities to ensure energy supply during peak periods and when other sources are unavailable. This ensures that energy remains affordable, reliable and secure for years to come, providing a bridge between current infrastructure and the future of cleaner, more efficient energy production.</p>" },
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    "caseStudies": [
+      {
+        "title": "Case Study Title One Goes Here",
+        "description": { "html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id libero eget dui facilisis molestie ut non elit. Donec porta finibus ante in accumsan. Pellentesque feugiat porta leo sed ornare. Mauris ut nisl id eros scelerisque tincidunt. Sed luctus varius mi, quis facilisis sem accumsan nec. Proin ac dui elementum.</p>" },
+        "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800",
+        "externalLink": {
+          "title": "Read more",
+          "url": "https://example.com/case-1",
+          "icon": "mdi:arrow-right"
+        },
+        "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      }
+    ],
+    "articles": [
+      {
+        "title": "The Future of Gas Storage",
+        "description": { "html": "<p>Exploring how hydrogen blending can leverage existing gas storage infrastructure for a net-zero future.</p>" },
+        "image": "https://images.unsplash.com/photo-1581094120910-13724339359a?auto=format&fit=crop&q=80&w=800",
+        "externalLink": {
+          "title": "View Article",
+          "url": "https://example.com/article-1",
+          "icon": "mdi:file-document"
+        }
+      }
+    ]
+  }
+]
