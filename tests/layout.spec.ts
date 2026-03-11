@@ -19,10 +19,10 @@ test('verify split layout proportions', async ({ page }) => {
   console.log('Map width:', mapBox.width);
 
   // Check if they are side-by-side (approx)
-  // 1280 * 2/3 = 853.33
   // 1280 * 1/3 = 426.66
-  expect(contentBox.width).toBeGreaterThan(800);
-  expect(mapBox.width).toBeGreaterThan(400);
+  // 1280 * 2/3 = 853.33
+  expect(contentBox.width).toBeGreaterThan(400);
+  expect(mapBox.width).toBeGreaterThan(800);
   expect(contentBox.y).toBe(mapBox.y);
 
   // Screenshot for visual confirmation

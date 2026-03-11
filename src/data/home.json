@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Isometric Exploration",
+    "description": "Welcome to our advanced interactive mapping platform. Discover deep insights through our custom-engineered isometric environments, designed for clarity and precision.",
+    "button": {
+      "title": "Get Started",
+      "url": "https://example.com/start",
+      "icon": "mdi:arrow-right"
+    }
+  },
+  "footer": {
+    "text": "© 2024 Interactive Map Project. All rights reserved.",
+    "button": {
+      "title": "Contact Us",
+      "url": "mailto:support@example.com",
+      "icon": "mdi:email"
+    }
+  }
+}

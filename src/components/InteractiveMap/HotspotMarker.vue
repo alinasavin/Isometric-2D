@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Hotspot } from '../../types/MapTypes'
+import type { Hotspot } from '../../types/hotspot'
 
 const props = defineProps<{
   hotspot: Hotspot
@@ -29,6 +29,7 @@ const markerScale = computed(() => {
       class="relative group cursor-pointer"
       :style="{ transform: `scale(${markerScale})` }"
       @click="$emit('click')"
+      :data-testid="`hotspot-${hotspot.id}`"
     >
       <div class="w-6 h-6 -translate-x-1/2 -translate-y-1/2 relative">
         <!-- Pulse Animation Ring -->
@@ -44,7 +45,7 @@ const markerScale = computed(() => {
         <!-- Tooltip Label -->
         <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur text-white text-xs px-3 py-1.5 rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0 pointer-events-none border border-secondary/30 z-20 shadow-xl">
           <span class="font-semibold block text-brand-yellow">{{ hotspot.title }}</span>
-          <span class="text-secondary font-light">{{ hotspot.label }}</span>
+          <span class="text-secondary font-light">{{ hotspot.subtitle }}</span>
         </div>
       </div>
     </div>

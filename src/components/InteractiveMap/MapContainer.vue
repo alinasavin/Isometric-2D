@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-import type { Hotspot } from '../../types/MapTypes'
-import mapDataJson from '../../data/mapData.json'
+import type { Hotspot } from '../../types/hotspot'
+import hotspotsData from '../../data/hotspots.json'
 import HotspotMarker from './HotspotMarker.vue'
 import Modal from '../Shared/Modal.vue'
-import ContentRenderer from '../Shared/ContentRenderer.vue'
+import HotspotDetailModal from './HotspotDetailModal.vue'
 import isometric from '../../assets/isometric.png'
 
-const mapData = mapDataJson.hotspots as Hotspot[]
+const mapData = hotspotsData.hotspots as Hotspot[]
 
 const containerRef = ref<HTMLDivElement | null>(null)
-const imageRef = ref<HTMLImageElement | null>(null)
 const scale = ref(0.8)
 const position = ref({ x: 0, y: 0 })
 const isDragging = ref(false)
@@ -166,8 +165,7 @@ onUnmounted(() => {
       }"
     >
       <img
-        ref="imageRef"
-        :src=isometric
+        :src="isometric"
         alt="Map Background"
         class="w-full h-full object-cover pointer-events-none select-none"
         draggable="false"
@@ -188,7 +186,7 @@ onUnmounted(() => {
       :is-open="!!selectedHotspot"
       @close="selectedHotspot = null"
     >
-      <ContentRenderer :content="selectedHotspot.content" />
+      <HotspotDetailModal :hotspot="selectedHotspot" />
     </Modal>
   </div>
 </template>
