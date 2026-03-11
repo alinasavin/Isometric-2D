@@ -5,6 +5,7 @@ import mapDataJson from '../../data/mapData.json'
 import HotspotMarker from './HotspotMarker.vue'
 import Modal from '../Shared/Modal.vue'
 import ContentRenderer from '../Shared/ContentRenderer.vue'
+import isometric from '../../assets/isometric.png'
 
 const mapData = mapDataJson.hotspots as Hotspot[]
 
@@ -150,7 +151,7 @@ onUnmounted(() => {
 <template>
   <div
     ref="containerRef"
-    class="relative w-full h-full overflow-hidden bg-neutral-900 cursor-grab active:cursor-grabbing select-none"
+    class="relative w-full h-full overflow-hidden bg-brand-light-grey cursor-grab active:cursor-grabbing select-none"
     @wheel="handleWheel"
     @mousedown="handleMouseDown"
   >
@@ -166,7 +167,7 @@ onUnmounted(() => {
     >
       <img
         ref="imageRef"
-        src="https://images.wallpaperscraft.com/image/single/train_railway_forest_169685_1600x900.jpg"
+        :src=isometric
         alt="Map Background"
         class="w-full h-full object-cover pointer-events-none select-none"
         draggable="false"

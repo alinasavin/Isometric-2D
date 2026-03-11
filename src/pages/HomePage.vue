@@ -4,11 +4,11 @@ import Brilliance from '../components/Shared/Brilliance.vue'
 </script>
 
 <template>
-  <div class="w-screen h-screen bg-neutral-950 overflow-hidden relative flex flex-col md:flex-row">
-    <Brilliance />
+  <div class="w-screen h-screen bg-brand-light-grey overflow-hidden relative flex flex-col md:flex-row">
+<!--    <Brilliance />-->
 
     <!-- Left Column: Content (2/3) -->
-    <div data-testid="content-panel" class="w-full md:w-2/3 h-1/2 md:h-full overflow-y-auto p-8 md:p-12 lg:p-16 z-10 flex flex-col justify-center">
+    <div data-testid="content-panel" class="w-full md:w-1/3 h-1/2 md:h-full overflow-y-auto p-8 md:p-12 lg:p-16 z-10 flex flex-col justify-center">
       <div class="max-w-2xl mx-auto space-y-8">
         <header class="space-y-4">
           <div class="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest">
@@ -50,7 +50,7 @@ import Brilliance from '../components/Shared/Brilliance.vue'
     </div>
 
     <!-- Right Column: Map (1/3) -->
-    <div data-testid="map-panel" class="w-full md:w-1/3 h-1/2 md:h-full relative border-t md:border-t-0 md:border-l border-neutral-800">
+    <div data-testid="map-panel" class="w-full md:w-2/3 h-1/2 md:h-full relative border-t md:border-t-0 md:border-l border-neutral-800">
       <MapContainer />
     </div>
   </div>
