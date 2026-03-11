@@ -1,157 +1,54 @@
 import React, { useState } from 'react';
 import MapContainer from '../components/InteractiveMap/MapContainer';
-import Modal from '../components/Shared/Modal';
-import ContentRenderer from '../components/Shared/ContentRenderer';
-import RagStatusPanel from '../components/Shared/RagStatusPanel';
-import Brilliance from '../components/Shared/Brilliance';
-import { IconMaximize, IconMinimize } from '../components/Shared/Icons';
-import { HotspotData } from '../types/MapTypes';
-import { mapData } from '../data/mapData';
+import HotspotModal from '../components/InteractiveMap/HotspotModal';
+import Button from '../components/Shared/Button';
+import Footer from '../components/Shared/Footer';
+import { HomeContent, FooterContent } from '../types/Home';
+import { Hotspot } from '../types/Hotspot';
 
-// High-quality steam train on tracks image (16:9)
+import homeData from '../data/home.json';
+import footerData from '../data/footer.json';
+import hotspotsData from '../data/hotspots.json';
+
 const BACKGROUND_IMAGE = "https://images.wallpaperscraft.com/image/single/train_railway_forest_169685_1600x900.jpg";
 
 const HomePage: React.FC = () => {
-  const [selectedHotspot, setSelectedHotspot] = useState<HotspotData | null>(null);
-  const [expandedSection, setExpandedSection] = useState<number | null>(null);
+  const [selectedHotspot, setSelectedHotspot] = useState<Hotspot | null>(null);
 
-  const handleHotspotClick = (hotspot: HotspotData) => {
-    setSelectedHotspot(hotspot);
-    setExpandedSection(null); // Reset expansion on new open
-  };
-
-  const closeModal = () => {
-    setSelectedHotspot(null);
-    setExpandedSection(null);
-  };
+  const home = homeData as HomeContent;
+  const footer = footerData as FooterContent;
+  const hotspots = hotspotsData as Hotspot[];
 
   return (
-    <div className="w-screen h-screen bg-background overflow-hidden relative">
+    <div className="flex flex-col h-screen w-screen bg-brand-dark-grey overflow-hidden font-sans text-brand-dark-grey">
       
-      {/* Brilliance Overlay - Left Side */}
-      <Brilliance steps={10} />
+      <main className="flex-1 flex overflow-hidden">
+        {/* Left Side: Home Content (1/3) */}
+        <div className="w-1/3 bg-white p-12 flex flex-col justify-center relative z-20 shadow-2xl">
+          <h1 className="text-6xl font-black mb-8 leading-tight tracking-tighter uppercase">{home.title}</h1>
+          <div className="text-lg text-gray-600 mb-10 leading-relaxed" dangerouslySetInnerHTML={{ __html: home.description }} />
+          <Button button={home.button} className="w-fit px-10" />
+        </div>
 
-      <MapContainer 
-        imageUrl={BACKGROUND_IMAGE} 
-        hotspots={mapData} 
-        onHotspotClick={handleHotspotClick}
-        fillSpace={true}
-      />
+        {/* Right Side: Map Container (2/3) */}
+        <div className="w-2/3 relative">
+          <MapContainer
+            imageUrl={BACKGROUND_IMAGE}
+            hotspots={hotspots}
+            onHotspotClick={setSelectedHotspot}
+          />
+        </div>
+      </main>
 
-      <Modal 
-        isOpen={!!selectedHotspot} 
-        onClose={closeModal} 
-        title={selectedHotspot?.title || ''}
-      >
-        {selectedHotspot && (
-          <div className="h-full flex flex-col lg:flex-row min-h-[500px] overflow-hidden">
-            
-            {/* Expandable Column 1: RAG Status */}
-            <ExpandableSection 
-              index={0} 
-              expandedIndex={expandedSection} 
-              onToggle={setExpandedSection}
-              className="lg:mr-4 mb-4 lg:mb-0"
-            >
-              <div className="h-full overflow-y-auto custom-scrollbar p-1">
-                 <RagStatusPanel status={selectedHotspot.ragStatus} />
-              </div>
-            </ExpandableSection>
+      <Footer content={footer} />
 
-            {/* Expandable Column 2: Content Left */}
-            <ExpandableSection 
-              index={1} 
-              expandedIndex={expandedSection} 
-              onToggle={setExpandedSection}
-              className="bg-surface/30 border border-secondary/10 lg:mx-2 mb-4 lg:mb-0"
-            >
-               <div className="h-full p-4 overflow-y-auto custom-scrollbar">
-                  <ContentRenderer block={selectedHotspot.columnLeft} />
-               </div>
-            </ExpandableSection>
-
-            {/* Expandable Column 3: Content Right */}
-            <ExpandableSection 
-              index={2} 
-              expandedIndex={expandedSection} 
-              onToggle={setExpandedSection}
-              className="bg-surface/30 border border-secondary/10 lg:ml-4"
-            >
-               <div className="h-full p-4 overflow-y-auto custom-scrollbar">
-                  <ContentRenderer block={selectedHotspot.columnRight} />
-               </div>
-            </ExpandableSection>
-
-          </div>
-        )}
-      </Modal>
-    </div>
-  );
-};
-
-// Sub-component for expandable logic
-interface ExpandableSectionProps {
-  index: number;
-  expandedIndex: number | null;
-  onToggle: (index: number | null) => void;
-  children: React.ReactNode;
-  className?: string;
-}
-
-const ExpandableSection: React.FC<ExpandableSectionProps> = ({ 
-  index, 
-  expandedIndex, 
-  onToggle, 
-  children, 
-  className = '' 
-}) => {
-  const isExpanded = expandedIndex === index;
-  const isHidden = expandedIndex !== null && !isExpanded;
-
-  // Determine flex and sizing classes
-  let layoutClasses = "";
-  
-  if (expandedIndex === null) {
-    // Default state: all equal
-    layoutClasses = "flex-1 opacity-100";
-  } else if (isExpanded) {
-    // Expanded state: standard 'over the top' feel via flex domination
-    layoutClasses = "flex-[100] opacity-100 m-0 z-10"; 
-  } else {
-    // Collapsed state: shrink to zero
-    layoutClasses = "flex-[0] w-0 h-0 p-0 m-0 border-0 opacity-0 overflow-hidden pointer-events-none";
-  }
-
-  // NOTE: We strip the 'className' margin/padding if hidden to avoid layout gaps
-  const appliedClassName = isHidden ? '' : className;
-
-  return (
-    <div 
-      className={`
-        relative rounded-xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
-        ${layoutClasses}
-        ${appliedClassName}
-      `}
-    >
-      {/* Expand/Collapse Toggle Button */}
-      {!isHidden && (
-        <button
-          onClick={() => onToggle(isExpanded ? null : index)}
-          className="absolute top-2 right-2 z-20 p-2 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full text-secondary hover:text-white transition-all border border-white/10 shadow-lg group"
-          aria-label={isExpanded ? "Minimize section" : "Maximize section"}
-        >
-          {isExpanded ? (
-            <IconMinimize className="w-5 h-5 group-hover:scale-110 transition-transform" />
-          ) : (
-            <IconMaximize className="w-5 h-5 group-hover:scale-110 transition-transform" />
-          )}
-        </button>
+      {selectedHotspot && (
+        <HotspotModal
+          isOpen={!!selectedHotspot}
+          onClose={() => setSelectedHotspot(null)}
+          hotspot={selectedHotspot}
+        />
       )}
-
-      {/* Content Wrapper */}
-      <div className={`h-full w-full transition-opacity duration-300 ${isHidden ? 'opacity-0' : 'opacity-100'}`}>
-        {children}
-      </div>
     </div>
   );
 };
