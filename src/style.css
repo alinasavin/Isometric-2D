@@ -1,0 +1,42 @@
+@theme {
+  --color-background: #192D38;
+  --color-surface: #000000;
+  --color-primary: #3F32F1;
+  --color-secondary: #BEDAE5;
+
+  --color-brand-light-grey: #BEDAE5;
+  --color-brand-dark-grey: #192D38;
+  --color-brand-green: #05E560;
+  --color-brand-blue: #3F32F1;
+  --color-brand-yellow: #B9FF00;
+
+  --animate-ping-slow: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-secondary overflow-hidden;
+  }
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-brand-dark-grey;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-light-grey rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-brand-blue;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}

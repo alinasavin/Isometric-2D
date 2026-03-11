@@ -9,14 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-dom": "^19.2.4",
-    "react-router-dom": "^7.13.0",
-    "react": "^19.2.4",
-    "lucide-react": "^0.563.0"
+    "lucide-vue-next": "^0.475.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@tailwindcss/vite": "^4.0.7",
+    "@types/node": "^22.13.4",
+    "@vitejs/plugin-vue": "^5.2.1",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
