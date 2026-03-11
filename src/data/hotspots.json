@@ -1,0 +1,66 @@
+{
+  "hotspots": [
+    {
+      "id": 1,
+      "x": 62,
+      "y": 48,
+      "title": "Gas Storage",
+      "subtitle": "Click to read more",
+      "content": {
+        "image": "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=1200",
+        "title": "Gas Storage",
+        "subtitle": "SECURE ENERGY SOLUTIONS",
+        "description": {
+          "html": "Gas storage plays a critical role in providing a flexible and reliable energy system. Besides helping manage peak demand periods, it can be used for balancing out variability in supply from renewables. Many systems also employ the injection of hydrogen, a low-carbon fuel that has long-term potential for providing a bridge between current infrastructure and the future of cleaner, more efficient energy production."
+        },
+        "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
+      },
+      "caseStudies": [
+        {
+          "title": "Case Study Title One Goes Here",
+          "description": {
+            "html": "Donec et hendrerit elit, ac accumsan eros. Nam id elit quis elit sagittis pulvinar. Nullam ut felis sit amet dui bibendum iaculis id quis diam. Donec et hendrerit elit, ac accumsan eros.<br/><br/>Donec et hendrerit elit, ac accumsan eros. Nam id elit quis elit sagittis pulvinar. Nullam ut felis sit amet dui bibendum iaculis id quis diam. Donec et hendrerit elit, ac accumsan eros."
+          },
+          "image": "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=600",
+          "externalLink": {
+            "title": "Read more",
+            "url": "https://example.com/case-study-1",
+            "icon": "mdi:arrow-right"
+          },
+          "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
+        }
+      ],
+      "articles": [
+        {
+          "title": "Article Title One",
+          "description": {
+            "html": "Information about Article One goes here."
+          },
+          "image": "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=600",
+          "externalLink": {
+            "title": "Read Article",
+            "url": "https://example.com/article-1",
+            "icon": "mdi:open-in-new"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "x": 38,
+      "y": 32,
+      "title": "Renewables",
+      "subtitle": "Click to read more",
+      "content": {
+        "image": "https://images.unsplash.com/photo-1509391366360-feaffa648b7b?auto=format&fit=crop&q=80&w=1200",
+        "title": "Renewables",
+        "subtitle": "CLEAN ENERGY GENERATION",
+        "description": {
+          "html": "Renewable energy sources such as wind and solar are the backbone of a sustainable energy future."
+        }
+      },
+      "caseStudies": [],
+      "articles": []
+    }
+  ]
+}

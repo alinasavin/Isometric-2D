@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Driving the Energy Transition",
+    "description": "We see power from every angle.<br/><br/>Our expertise spans virtually all aspects of the energy system—from power generation, transmission and distribution, to industrial decarbonisation, electrification and storage.<br/>We help clients navigate complexity with practical solutions to bring reliable, affordable and more sustainable energy to the market.<br/><br/>Select the pins in our infographic to reveal more information.",
+    "button": {
+      "title": "Get in touch",
+      "url": "mailto:contact@example.com",
+      "icon": "mdi:arrow-right"
+    }
+  },
+  "footer": {
+    "text": "We're live at the event this year! Come and meet us at Stand X, we'd love to have a chat.",
+    "button": {
+      "title": "LinkedIn",
+      "url": "https://linkedin.com",
+      "icon": "mdi:linkedin"
+    }
+  }
+}

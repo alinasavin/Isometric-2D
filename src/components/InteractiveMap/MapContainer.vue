@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-import type { Hotspot } from '../../types/MapTypes'
-import mapDataJson from '../../data/mapData.json'
+import type { Hotspot } from '../../types/Hotspot'
+import hotspotsData from '../../data/hotspots.json'
 import HotspotMarker from './HotspotMarker.vue'
-import Modal from '../Shared/Modal.vue'
-import ContentRenderer from '../Shared/ContentRenderer.vue'
+import HotspotDetailModal from './HotspotDetailModal.vue'
 import isometric from '../../assets/isometric.png'
 
-const mapData = mapDataJson.hotspots as Hotspot[]
+const mapData = hotspotsData.hotspots as Hotspot[]
 
 const containerRef = ref<HTMLDivElement | null>(null)
 const imageRef = ref<HTMLImageElement | null>(null)
@@ -16,6 +15,7 @@ const position = ref({ x: 0, y: 0 })
 const isDragging = ref(false)
 const dragStart = ref({ x: 0, y: 0 })
 const selectedHotspot = ref<Hotspot | null>(null)
+const showLabels = ref(true)
 
 // Natural image dimensions
 const IMAGE_WIDTH = 1600
@@ -29,17 +29,14 @@ const calculateDynamicBoundaries = () => {
 
   const containerRect = containerRef.value.getBoundingClientRect()
 
-  // Calculate minimum scale to ensure image always fills container
   const scaleX = containerRect.width / IMAGE_WIDTH
   const scaleY = containerRect.height / IMAGE_HEIGHT
   minScale.value = Math.max(scaleX, scaleY)
 
-  // Ensure current scale is not below minScale
   if (scale.value < minScale.value) {
     scale.value = minScale.value
   }
 
-  // Re-clamp position
   position.value = calculateClampedTranslation(position.value.x, position.value.y, scale.value)
 }
 
@@ -49,7 +46,6 @@ const handleWheel = (e: WheelEvent) => {
   const delta = -e.deltaY
   const newScale = Math.min(Math.max(scale.value + delta * zoomSpeed, minScale.value), maxScale)
 
-  // Re-clamp position with new scale
   position.value = calculateClampedTranslation(position.value.x, position.value.y, newScale)
   scale.value = newScale
 }
@@ -74,7 +70,6 @@ const calculateClampedTranslation = (
   const scaledWidth = IMAGE_WIDTH * currentScale
   const scaledHeight = IMAGE_HEIGHT * currentScale
 
-  // Horizontal clamping
   let clampedX = x
   if (scaledWidth <= containerRect.width) {
     clampedX = (containerRect.width - scaledWidth) / 2
@@ -82,7 +77,6 @@ const calculateClampedTranslation = (
     clampedX = Math.min(0, Math.max(containerRect.width - scaledWidth, x))
   }
 
-  // Vertical clamping
   let clampedY = y
   if (scaledHeight <= containerRect.height) {
     clampedY = (containerRect.height - scaledHeight) / 2
@@ -130,10 +124,8 @@ onMounted(() => {
     resizeObserver.observe(containerRef.value)
   }
 
-  // Initial calculation
   nextTick(() => {
     calculateDynamicBoundaries()
-    // Center map
     position.value = calculateClampedTranslation(0, 0, scale.value)
   })
 })
@@ -167,7 +159,7 @@ onUnmounted(() => {
     >
       <img
         ref="imageRef"
-        :src=isometric
+        :src="isometric"
         alt="Map Background"
         class="w-full h-full object-cover pointer-events-none select-none"
         draggable="false"
@@ -179,16 +171,30 @@ onUnmounted(() => {
         :key="hotspot.id"
         :hotspot="hotspot"
         :scale="scale"
+        :show-label="showLabels"
         @click="openHotspot(hotspot)"
       />
     </div>
 
-    <Modal
+    <!-- Label Toggle -->
+    <div class="absolute bottom-8 right-8 bg-white/90 backdrop-blur rounded-lg shadow-lg p-3 flex items-center gap-3 z-30">
+      <span class="text-[#192D38] text-sm font-semibold">Hide labels</span>
+      <button
+        @click="showLabels = !showLabels"
+        class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none"
+        :class="showLabels ? 'bg-brand-green' : 'bg-gray-300'"
+      >
+        <span
+          class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+          :class="showLabels ? 'translate-x-6' : 'translate-x-1'"
+        />
+      </button>
+    </div>
+
+    <HotspotDetailModal
       v-if="selectedHotspot"
-      :is-open="!!selectedHotspot"
+      :hotspot="selectedHotspot"
       @close="selectedHotspot = null"
-    >
-      <ContentRenderer :content="selectedHotspot.content" />
-    </Modal>
+    />
   </div>
 </template>
